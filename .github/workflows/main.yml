@@ -18,3 +18,22 @@ jobs:
         with:
           path: ${{ steps.extract.outputs.destination }}
           name: cv
+          
+  public_cv:
+    name: public_cv
+    runs-on: ubuntu-18.04
+    needs: build
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: cv_pdf
+      - name: download cv
+        uses: actions/download-artifact@v2
+        with:
+          name: cv
+      - run: |
+          git add main.pdf
+          git commit -m "Add cv"
+          git push
+        
+    
