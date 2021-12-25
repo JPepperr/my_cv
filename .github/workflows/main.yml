@@ -1,0 +1,20 @@
+on: [push]
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: run docker
+        run: docker build -t cv_docker .
+      - uses: shrink/actions-docker-extract@v1
+        id: extract
+        with:
+          image: cv_docker
+          path: /cv/.
+      - name: upload pdf
+        uses: actions/upload-artifact@v2
+        with:
+          path: /cv/main.pdf
+          name: cv
