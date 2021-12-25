@@ -32,6 +32,8 @@ jobs:
         with:
           name: cv
       - run: |
+          git config --global user.email "shidan3101@yandex.ru"
+          git config --global user.name "Jpepperr"
           git add main.pdf
           git commit -m "Add cv"
           git push
