@@ -8,9 +8,13 @@ jobs:
       - uses: actions/checkout@v2
       - name: run docker
         run: docker build -t cv_docker .
-      - name: upload pdf
-        uses: actions/upload-artifact@v2
+      - uses: shrink/actions-docker-extract@v1
+        id: extract
         with:
           image: cv_docker
           path: /cv/main.pdf
+      - name: upload pdf
+        uses: actions/upload-artifact@v2
+        with:
+          path: ${{ steps.extract.outputs.destination }}
           name: cv
